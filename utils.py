@@ -234,5 +234,8 @@ class LogResult:
             if isinstance(value, int):
                 string += f"{key}:\n{value}\n{max(value_lst)}\n{min(value_lst)}\n"
             else:
+                print(type(key), key)
+                print(type(max(value_lst)), max(value_lst))
+                print(type(min(value_lst)), min(value_lst))
                 string += f"{key}:\n{value:.4f}\n{max(value_lst):.4f}\n{min(value_lst):.4f} \n"
         print(string)

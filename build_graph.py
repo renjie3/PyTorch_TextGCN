@@ -125,6 +125,7 @@ class BuildGraph:
         tfidf_vec = self.get_tfidf_vec()
 
         count_lst = list()  # 统计每个句子的长度
+        max_ind = 0
         for ind, row in tqdm(enumerate(tfidf_vec),
                              desc="generate tfidf edge"):
             count = 0
@@ -133,6 +134,9 @@ class BuildGraph:
                 self.g.add_edge(ind, word_ind, weight=value)
                 count += 1
             count_lst.append(count)
+            max_ind = ind
+        print(max_ind, self.dataset)
+        input()
 
         print_graph_detail(self.g)
 

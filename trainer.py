@@ -243,17 +243,27 @@ def main(dataset, times):
             gpu_mem = cudause.gpu_mem_get(_id=0)
             record.log_single(key="gpu_mem", value=gpu_mem)
 
-        record.log(framework.test())
+        test_desc = framework.test()
+        print(test_desc)
 
-        del framework
-        gc.collect()
+        # record.log(framework.test())
+
+        # del framework
+        # gc.collect()
 
         if th.cuda.is_available():
             th.cuda.empty_cache()
 
-    print("==> seed set:")
-    print(seed_lst)
-    record.show_str()
+    # print("==> seed set:")
+    # print(seed_lst)
+    # record.show_str()
+
+
+# 10661 mr
+# 7399 ohsumed
+# 9099 R52
+# 7673 R8
+# 18845 20ng
 
 
 if __name__ == '__main__':
