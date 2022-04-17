@@ -20,6 +20,8 @@ from utils import print_graph_detail
 from utils import read_file
 from utils import return_seed
 
+import pickle
+
 th.backends.cudnn.deterministic = True
 th.backends.cudnn.benchmark = True
 warnings.filterwarnings("ignore")
@@ -57,6 +59,9 @@ class PrepareData:
 
         self.adj = preprocess_adj(adj, is_sparse=True)
 
+        # pickle.dump(self.adj, open(f'heter_data/{self.args.dataset}/adj.pkl', 'wb'))
+        # input('done adj')
+
         # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         # features
@@ -72,6 +77,9 @@ class PrepareData:
 
         self.features = th.sparse.FloatTensor(indices, values, shape)
 
+        # pickle.dump(self.features, open(f'heter_data/{self.args.dataset}/features.pkl', 'wb'))
+        # input('done features')
+
         # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         # target
 
@@ -83,10 +91,18 @@ class PrepareData:
         self.target = [target2id[label] for label in target]
         self.nclass = len(target2id)
 
+        # pickle.dump(self.target, open(f'heter_data/{self.args.dataset}/target.pkl', 'wb'))
+        # input('done target')
+
         # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         # train val test split
 
         self.train_lst, self.test_lst = get_train_test(target_fn)
+
+        # print(type(self.train_lst), type(self.test_lst))
+        # print(self.train_lst)
+        # pickle.dump([self.train_lst, self.test_lst], open(f'heter_data/{self.args.dataset}/train_test_id.pkl', 'wb'))
+        # input('train_test')
 
 
 class TextGCNTrainer:
@@ -270,7 +286,7 @@ if __name__ == '__main__':
     # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     # for d in ["mr", "ohsumed", "R52", "R8", "20ng"]:
     #     main(d)
-    main("mr", 1)
+    main("ohsumed", 1)
     # main("ohsumed")
     # main("R8", 1)
     # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
